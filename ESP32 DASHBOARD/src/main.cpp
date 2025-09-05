@@ -99,13 +99,6 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t *payload, size_t lenght)
       Serial.printf("[%u] Mensaje Recibido: %s\n", num, payload);
       String msg = String((char*)(payload));
 
-      //if(msg.equalsIgnoreCase("ledOn"))
-      if(msg.equalsIgnoreCase("1"))
-          digitalWrite(ledPin, HIGH);
-      
-      //if(msg.equalsIgnoreCase("ledOff"))
-      if(msg.equalsIgnoreCase("0"))
-          digitalWrite(ledPin, LOW);
     }break;
   }
 }
