@@ -1,0 +1,229 @@
+
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+}
+
+html{
+    width: 100%;
+}
+
+body{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    min-height: 100vh;
+    background-image: linear-gradient(#e5edfa, #325490);
+/*     background-image: url(/img/doc1.jpg);
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-position-x: center; */
+    margin: 0 auto;
+}
+
+.titleBox{
+    height: 120px;
+    width: 700px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 20px;
+    /* border: solid 2px #ff00dd; */
+}
+
+.titleBox>h1{
+    font-family: Times;
+    font-size: 100px;
+    color: #3a23c1;
+    text-shadow:5px 5px 5px #558abb;
+}
+
+.titleBox #escudo{
+    height: 100%;
+}
+.titleBox #logo{
+    height: 100%;
+}
+
+.contenedor{
+    position: relative;
+    width: 900px;
+    display:flex;
+    justify-content: space-around;
+/*     border: solid 2px #ff00dd;
+ */}
+
+
+.contenedor .card{
+    position: relative;
+    width: 250px;
+    background: linear-gradient(#97a9c2,#234573);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    border-radius: 40px;
+    text-align: center;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.contenedor .card:hover{
+    transform: translateY(-10px);
+/*     transform: rotate(20deg);
+ */    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+.percent{
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 50px #000;
+    background: #222;
+    z-index: 1000;
+}
+
+.percent .number{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.percent .number h2{
+    color: #777;
+    font-weight: 700;
+    font-size: 40px;
+    transition: 0.5s;
+}
+
+.card:hover .percent .number h2{
+    color: #fff;
+    font-size: 50px;
+}
+
+.percent .number h2 span{
+    font-size: 24px;
+    color: #777;
+}
+
+.card:hover .percent .number h2 span{
+    color: #fff;
+    transition: 0.5s;
+}
+
+.text{
+    position: relative;
+    color: #f5f3f3;
+    margin-top: 20px;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+
+.card:hover text{
+    color: #fff;
+}
+
+svg{
+    position: relative;
+    width: 150px;
+    height: 150px;
+    z-index: 1000;
+}
+
+svg circle{
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: #191919;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transform: translate(5px,5px);
+}
+
+svg line{
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: #191919;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transform: translate(5px,5px);
+}
+
+svg line:nth-child(2){
+    stroke-dasharray: 150;
+    stroke-dashoffset: 150;
+}
+
+svg circle:nth-child(2){
+    stroke-dasharray: 440;
+    stroke-dashoffset: 440;
+}
+
+.card:nth-child(1) svg circle:nth-child(2){
+    stroke-dashoffset: calc(440px - (440px * 90) / 100);
+    stroke: #3dc260;
+}
+
+.card:nth-child(2) svg circle:nth-child(2){
+    stroke-dashoffset: calc(440px - (440px * 25) / 100);
+    stroke: #ff00dd;
+}
+.card:nth-child(3) svg line:nth-child(2){
+    stroke-dashoffset: calc(150px - (150px * 50) / 100);
+    stroke: #3a23c1;
+}
+
+.contenedor .card #setLuz{
+    width: 110px;
+    height: 30px;
+    margin: 10px;
+    font-style: italic;
+    text-align: center;
+    border-radius: 15px;
+}
+
+.boton{
+    width: 50px;
+    height: 30px;
+    color:#fff;
+    font-weight: bold;
+    background-color: #325490;
+}
+
+
+@media(max-width: 990px){
+    .titleBox{
+        height: 100px;
+        width: 300px;
+    }
+    .titleBox #escudo{
+        height: 0%;
+    }
+    .titleBox #logo{
+        height: 0%;
+    }
+
+    .contenedor{
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .contenedor .card{
+        margin: 20px auto;
+    }
+}

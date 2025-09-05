@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ESP32 Dashboard </title>    <!-- Nombre de la página -->
+    <link rel="icon" type="image/x-icon" href="icon.png">
+    <link rel="stylesheet" type="text/css"  href="styles.css"> <!-- carga de estilos -->
+</head>
+<body>
+    <div class="titleBox">
+        <img id="escudo" src="Escudo.png" alt="Escudo del colegio">
+        <h1>RIBA</h1>
+        <img id="logo" src="logo.png" alt="Logo de la empresa">
+    </div>
+
+    <div class="contenedor"> <!-- contenedor principal -->
+        <div class="card" id="temperature" data-value="0">
+            <div class="box">
+                <div class="percent">
+                    <svg>
+                        <circle cx="70" cy="70" r="70"></circle>
+                        <circle cx="70" cy="70" r="70"></circle>
+                    </svg>
+                    <div class="number">
+                        <h2>0<span>°C</span></h2>
+                    </div>
+                </div>
+                <h2 class="text">Temperatura</h2>
+            </div>
+        </div>
+
+        <div class="card" id="potentiometer" data-value="0">
+            <div class="box">
+                <div class="percent">
+                    <svg>
+                        <circle cx="70" cy="70" r="70"></circle>
+                        <circle cx="70" cy="70" r="70"></circle>
+                    </svg>
+                    <div class="number">
+                        <h2>0<span>%</span></h2>
+                    </div>
+                </div>
+                <h2 class="text">Potenciómetro</h2>
+            </div>
+        </div>
+
+        <div class="card" id="control">
+            <div class="box">
+                <input type="text" id="setLuz" placeholder="valor a asignar" required autofocus>
+                <button class="boton" onclick="enviarValor()"> Set </button>
+                <h2 class="text">Configurar</h2>
+            </div>
+        </div>
+        
+
+    </div>  <!-- cierre del contenedor principal -->
+</body>
+
+<script>
+    let ws = new WebSocket("ws://" + window.location.hostname + ":81/");
+    ws.onmessage = function(event)
+    {
+        let data = JSON.parse(event.data);
+        //  console.log(data.potentiometer);
+
+        updateCard("potentiometer",data.potentiometer, "%");
+        updateCard("temperature",data.temperature, "°C");
+        // updateCard("temperature",data.temperature.toFixed(1), "°C");
+    };
+
+    function updateCard(cardId, value, unit)
+    {
+        const card = document.getElementById(cardId);
+        const text = card.querySelector('.number>h2');
+        const circle = card.querySelector('svg circle:nth-child(2)');
+
+        text.innerHTML = `${value}<span>${unit}</span>`;
+
+        const radius = circle.r.baseVal.value;
+        const circumference = radius * 2 * Math.PI;
+
+        if(cardId === "potentiometer")
+        {
+            const offset = circumference - (value / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+            circle.style.stroke = "#ff04f7";
+        }
+        if(cardId === "temperature")
+        {
+            const offset = circumference - (value / 40) * circumference;
+            circle.style.strokeDashoffset = offset;
+            circle.style.stroke = "#ec4e0d";
+        }
+
+        card.setAttribute('data-value', value);
+    }
+
+    function enviarValor(){
+        ws.send(document.getElementById("setLuz").value);
+        console.log(document.getElementById("setLuz").value);
+    }
+
+    // const enviarValor = () => ws.send("ledOn");
+
+</script>
+
+
+</html>
