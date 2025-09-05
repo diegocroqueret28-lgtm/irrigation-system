@@ -10,8 +10,7 @@
 <body>
     <div class="titleBox">
         <img id="escudo" src="Escudo.png" alt="Escudo del colegio">
-        <h1>RIBA</h1>
-        <img id="logo" src="logo.png" alt="Logo de la empresa">
+        <h1>DEL</h1>
     </div>
 
     <div class="contenedor"> <!-- contenedor principal -->
@@ -41,17 +40,25 @@
                         <h2>0<span>%</span></h2>
                     </div>
                 </div>
-                <h2 class="text">Potenciómetro</h2>
+                <h2 class="text">Humedad</h2>
             </div>
         </div>
 
-        <div class="card" id="control">
+                <div class="card" id="potentiometer" data-value="0">
             <div class="box">
-                <input type="text" id="setLuz" placeholder="valor a asignar" required autofocus>
-                <button class="boton" onclick="enviarValor()"> Set </button>
-                <h2 class="text">Configurar</h2>
+                <div class="percent">
+                    <svg>
+                        <circle cx="70" cy="70" r="70"></circle>
+                        <circle cx="70" cy="70" r="70"></circle>
+                    </svg>
+                    <div class="number">
+                        <h2>0<span>%</span></h2>
+                    </div>
+                </div>
+                <h2 class="text">Luz</h2>
             </div>
         </div>
+
         
 
     </div>  <!-- cierre del contenedor principal -->
@@ -96,14 +103,12 @@
         card.setAttribute('data-value', value);
     }
 
-    function enviarValor(){
-        ws.send(document.getElementById("setLuz").value);
-        console.log(document.getElementById("setLuz").value);
-    }
 
     // const enviarValor = () => ws.send("ledOn");
 
-</script>
 
+
+</script>
+<div style="display: none;"> derechos reservados juan dominici</div>
 
 </html>
