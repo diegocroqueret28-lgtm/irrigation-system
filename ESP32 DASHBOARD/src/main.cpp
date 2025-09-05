@@ -1,7 +1,16 @@
 #include  <Arduino.h>
 #include  <ESPAsyncWebServer.h>
 #include  <SPIFFS.h>
+#include <DHT.h>
 #include  <WebSocketsServer.h>
+
+#define DHTPIN 33     // Pin donde está conectado el sensor DHT
+#define DHTTYPE DHT11 
+DHT dht(DHTPIN, DHTTYPE);
+
+
+float temp = dht.readTemperature(); // Lee temperatura real
+
 
 const uint8_t ledPin = 2;
 const uint8_t potPin = 32;
@@ -16,6 +25,7 @@ void notFound(AsyncWebServerRequest*);
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
+  dht.begin();
   pinMode(ledPin,OUTPUT);
   pinMode(potPin,INPUT);
 
@@ -55,7 +65,7 @@ void loop() {
   if(millis() - prevMillis >= dataTxTimeInterval)
   {
     prevMillis = millis();
-    float temp = 25.4;
+    float temp = dht.readTemperature();
     int potValue = analogRead(potPin);
     potValue = map(potValue, 0, 4095, 0, 100);
 
